@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <h3>待付款订单列表</h3>
+
+    <ul>
+        <!--订单信息展示-->
+        {% for order in orders %}
+            <div style="height: 4px; width: 100%;border: 1px solid #000000"></div>
+            <li>
+                <a href="{% url "shop:orderpay" order.id %}">
+                    <p><!-- 订单id -->{{ order.id }}</p>
+                    {% for ordergoods in order.ordergoods_set.all %}
+                    <p><!-- 数量 -->{{ ordergoods.goods_sum }}</p>
+                        <!--展示商品的名称-->
+                        <li>
+                            <img src="{{ ordergoods.goods.productimg }}" alt=""> {{ordergoods.goods.productlongname}}
+                        </li>
+                        <!--处理结束-->
+                    {% endfor %}
+                </a>
+            </li>
+        <!--订单处理结束-->
+        {% endfor %}
+
+    </ul>
+
+
+{% endblock %}
